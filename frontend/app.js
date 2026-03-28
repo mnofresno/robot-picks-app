@@ -1,7 +1,24 @@
 const API_BASE_URL =
   window.location.protocol === "file:" ? "http://localhost:3000" : "";
 
+const robotOptions = ["Robot-A", "Robot-B", "Robot-C"];
+const itemOptions = ["Item-123", "Item-456", "Item-789"];
+
 let allEvents = [];
+let nextSimulatedEvent = createRandomEvent();
+
+function createRandomEvent() {
+  return {
+    robot_id: robotOptions[Math.floor(Math.random() * robotOptions.length)],
+    item_id: itemOptions[Math.floor(Math.random() * itemOptions.length)],
+  };
+}
+
+function updateSimulateButton() {
+  document.getElementById(
+    "simulateButton"
+  ).textContent = `Simulate Event: ${nextSimulatedEvent.robot_id} / ${nextSimulatedEvent.item_id}`;
+}
 
 async function loadEvents() {
   const response = await fetch(`${API_BASE_URL}/events`);
@@ -11,8 +28,9 @@ async function loadEvents() {
 
 function renderEvents() {
   const filterValue = document.getElementById("robotFilter").value;
+  const filterField = document.getElementById("filterField").value;
   const filteredEvents = filterValue
-    ? allEvents.filter((event) => event.robot_id.includes(filterValue))
+    ? allEvents.filter((event) => event[filterField].includes(filterValue))
     : allEvents;
   const eventsBody = document.getElementById("eventsBody");
 
@@ -41,16 +59,26 @@ async function simulateEvent() {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      robot_id: "R1",
-      item_id: "A",
-    }),
+    body: JSON.stringify(nextSimulatedEvent),
+  });
+
+  nextSimulatedEvent = createRandomEvent();
+  updateSimulateButton();
+  await loadEvents();
+}
+
+async function clearEvents() {
+  await fetch(`${API_BASE_URL}/events`, {
+    method: "DELETE",
   });
 
   await loadEvents();
 }
 
+document.getElementById("filterField").addEventListener("change", renderEvents);
 document.getElementById("robotFilter").addEventListener("input", renderEvents);
 document.getElementById("simulateButton").addEventListener("click", simulateEvent);
+document.getElementById("clearButton").addEventListener("click", clearEvents);
 
+updateSimulateButton();
 loadEvents();
