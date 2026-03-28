@@ -41,17 +41,17 @@ function renderEvents() {
 
   filteredEvents.forEach((event) => {
     const row = document.createElement("tr");
+    const timestampCell = document.createElement("td");
     const robotCell = document.createElement("td");
     const itemCell = document.createElement("td");
-    const timestampCell = document.createElement("td");
 
+    timestampCell.textContent = event.timestamp;
     robotCell.textContent = event.robot_id;
     itemCell.textContent = event.item_id;
-    timestampCell.textContent = event.timestamp;
 
+    row.appendChild(timestampCell);
     row.appendChild(robotCell);
     row.appendChild(itemCell);
-    row.appendChild(timestampCell);
     eventsBody.appendChild(row);
   });
 }
