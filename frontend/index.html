@@ -7,13 +7,15 @@
   </head>
   <body>
     <h1>Robot Picks</h1>
-    <h2>Filter Events</h2>
-    <label for="robotFilter">Filter by Robot ID (updates as you type)</label>
+    <label for="filterField">Filter Field</label>
+    <select id="filterField">
+      <option value="robot_id">Robot ID</option>
+      <option value="item_id">Item ID</option>
+    </select>
+    <label for="robotFilter">Filter Events</label>
     <input id="robotFilter" type="text" placeholder="e.g. R1 or Robot-A" />
-    <p id="filterHelp">This only filters the events already loaded on the page.</p>
-    <h2>Simulate Pick Event</h2>
-    <button id="simulateButton" type="button">Simulate Event: R1 / A</button>
-    <p id="simulateHelp">Creates { robot_id: "R1", item_id: "A" }.</p>
+    <button id="simulateButton" type="button">Simulate Event</button>
+    <button id="clearButton" type="button">Clear All Events</button>
     <table border="1">
       <thead>
         <tr>

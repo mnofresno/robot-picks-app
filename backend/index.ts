@@ -40,6 +40,11 @@ app.get("/events", (_req, res) => {
   res.json(events);
 });
 
+app.delete("/events", (_req, res) => {
+  events.length = 0;
+  res.status(204).send();
+});
+
 app.listen(3000, "127.0.0.1", () => {
   console.log("Server running on port 3000");
 });
