@@ -29,9 +29,12 @@ async function loadEvents() {
 function renderEvents() {
   const filterValue = document.getElementById("robotFilter").value;
   const filterField = document.getElementById("filterField").value;
+  const sortedEvents = [...allEvents].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
   const filteredEvents = filterValue
-    ? allEvents.filter((event) => event[filterField].includes(filterValue))
-    : allEvents;
+    ? sortedEvents.filter((event) => event[filterField].includes(filterValue))
+    : sortedEvents;
   const eventsBody = document.getElementById("eventsBody");
 
   eventsBody.innerHTML = "";

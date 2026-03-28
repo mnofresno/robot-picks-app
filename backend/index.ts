@@ -37,7 +37,11 @@ app.post("/pick", (req, res) => {
 });
 
 app.get("/events", (_req, res) => {
-  res.json(events);
+  res.json(
+    [...events].sort(
+      (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    )
+  );
 });
 
 app.delete("/events", (_req, res) => {
