@@ -4,6 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Robot Picks App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      input,
+      select {
+        margin-bottom: 10px;
+        padding: 5px;
+      }
+
+      button {
+        margin: 10px 10px 10px 0;
+        padding: 5px 10px;
+      }
+
+      table {
+        margin-top: 10px;
+      }
+
+      td {
+        margin: 4px 0;
+      }
+    </style>
   </head>
   <body>
     <h1>Robot Picks</h1>
@@ -16,7 +46,7 @@
     <input id="robotFilter" type="text" placeholder="e.g. R1 or Robot-A" />
     <button id="simulateButton" type="button">Simulate Event</button>
     <button id="clearButton" type="button">Clear All Events</button>
-    <table border="1">
+    <table border="1" cellpadding="5">
       <thead>
         <tr>
           <th>Robot ID</th>
