@@ -40,6 +40,6 @@ app.get("/events", (_req, res) => {
   res.json(events);
 });
 
-app.listen(3000, () => {
+app.listen(3000, "127.0.0.1", () => {
   console.log("Server running on port 3000");
 });
