@@ -18,6 +18,24 @@ function updateSimulateButton() {
   document.getElementById(
     "simulateButton"
   ).textContent = `Simulate Event: ${nextSimulatedEvent.robot_id} / ${nextSimulatedEvent.item_id}`;
+  document.getElementById(
+    "simulateHelp"
+  ).textContent = `{ robot_id: "${nextSimulatedEvent.robot_id}", item_id: "${nextSimulatedEvent.item_id}" }`;
+}
+
+function updateFilterLabel() {
+  const filterField = document.getElementById("filterField").value;
+  const filterLabel = document.getElementById("filterLabel");
+  const filterInput = document.getElementById("robotFilter");
+
+  if (filterField === "item_id") {
+    filterLabel.textContent = "Filter by Item ID";
+    filterInput.placeholder = "e.g. Item-123";
+    return;
+  }
+
+  filterLabel.textContent = "Filter by Robot ID";
+  filterInput.placeholder = "e.g. Robot-A";
 }
 
 async function loadEvents() {
@@ -76,9 +94,11 @@ async function clearEvents() {
 }
 
 document.getElementById("filterField").addEventListener("change", renderEvents);
+document.getElementById("filterField").addEventListener("change", updateFilterLabel);
 document.getElementById("robotFilter").addEventListener("input", renderEvents);
 document.getElementById("simulateButton").addEventListener("click", simulateEvent);
 document.getElementById("clearButton").addEventListener("click", clearEvents);
 
+updateFilterLabel();
 updateSimulateButton();
 loadEvents();
