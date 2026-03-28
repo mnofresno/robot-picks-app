@@ -47,26 +47,29 @@ async function loadEvents() {
 function renderEvents() {
   const filterValue = document.getElementById("robotFilter").value;
   const filterField = document.getElementById("filterField").value;
+  const sortedEvents = [...allEvents].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
   const filteredEvents = filterValue
-    ? allEvents.filter((event) => event[filterField].includes(filterValue))
-    : allEvents;
+    ? sortedEvents.filter((event) => event[filterField].includes(filterValue))
+    : sortedEvents;
   const eventsBody = document.getElementById("eventsBody");
 
   eventsBody.innerHTML = "";
 
   filteredEvents.forEach((event) => {
     const row = document.createElement("tr");
+    const timestampCell = document.createElement("td");
     const robotCell = document.createElement("td");
     const itemCell = document.createElement("td");
-    const timestampCell = document.createElement("td");
 
+    timestampCell.textContent = event.timestamp;
     robotCell.textContent = event.robot_id;
     itemCell.textContent = event.item_id;
-    timestampCell.textContent = event.timestamp;
 
+    row.appendChild(timestampCell);
     row.appendChild(robotCell);
     row.appendChild(itemCell);
-    row.appendChild(timestampCell);
     eventsBody.appendChild(row);
   });
 }
